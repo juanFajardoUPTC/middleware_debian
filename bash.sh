@@ -1,10 +1,4 @@
 #!/bin/bash
-
-source ip.cfg 
-
-ip=($IP1 $IP2) 
-
-
 x=1
 while [ $x -le 5000 ]
 do
