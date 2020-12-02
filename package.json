@@ -1,9 +1,9 @@
 {
   "name": "middleware_debian",
   "version": "1.0.0",
-  "description": "",
   "main": "api.js",
   "scripts": {
+    "start": "nodemon api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +18,9 @@
   "homepage": "https://github.com/juanFajardoUPTC/middleware_debian#readme",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "description": ""
 }

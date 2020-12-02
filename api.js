@@ -3,41 +3,73 @@ const app = express()
 const port = 3000
 app.use(express.json())
 
-var fs = require('fs');
-var respuestas = "";
+const readline = require("readline"),
+fs = require('fs');
+var respuestas1 = "";
+var respuestas2 = "";
 
 
 
 app.get('/', (req, res) => {
-    imprimir()
-    res.send(respuestas)
-    respuestas = ""
+
+  
+  respuestas1+="<br>Servidor 1<br>"
+  respuestas2+="<br>Servidor 2<br>"
+    imprimir1()    
+    imprimir2()
+    res.send(respuestas1+respuestas2)
+    respuestas1 = ""
+  respuestas2 = ""
+  
+ 
     //actualizar()
     //setInterval("actualizar()",1000);
+    
+    
   })
 
   //function actualizar(){location.reload();}
   
-
-
-  function imprimir() {
+  function timedRefresh(timeoutPeriod) {
+    setTimeout("location.reload(true);",timeoutPeriod);
+  }
+  
+  
+  function imprimir1() {    
     
-    fs.readFile('servidor1.txt', 'utf8', function(err, data) {
-        if (err) {
-          return console.log(err);
-        }
-        respuestas+="Servidor 1<br>"
-        respuestas+=data+"<br><br>"      
-        
-      })
-      fs.readFile('servidor2.txt', 'utf8', function(err, data) {
-        if (err) {
-          return console.log(err);
-        }
-        respuestas+="Servidor 2<br>"
-        respuestas+=data+"<br><br>"       
-      })
-      console.log(respuestas);
+    NOMBRE_ARCHIVO = "servidor1.txt";
+
+let lector = readline.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO)
+});
+
+lector.on("line", linea => {
+  aux=linea+""
+  if (aux.indexOf("Destination Host Unreachable")>0) {
+    respuestas1+="0"
+  }else{respuestas1+="1"}
+  
+});
+  }
+
+
+  function imprimir2() {
+
+NOMBRE_ARCHIVO2 = "servidor2.txt";
+
+lector = readline.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO2)
+});
+
+lector.on("line", linea => {
+  aux=linea+""
+  if (aux.indexOf("Destination Host Unreachable")>0) {
+    respuestas2+="0"
+  }else{respuestas2+="1"}
+    
+});
+   
+      
       
   }
 
